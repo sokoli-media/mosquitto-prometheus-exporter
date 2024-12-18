@@ -151,7 +151,7 @@ func processMosquittoMessage(logger *slog.Logger, topic string, payload string) 
 		}
 	default:
 		mosquittoUnknownTopic.With(prometheus.Labels{"topic": topic}).Inc()
-		return errors.New(fmt.Sprintf("unknown topic: %s", topic))
+		return fmt.Errorf("unknown topic: %s", topic)
 	}
 
 	mosquittoLastUpdate.SetToCurrentTime()
