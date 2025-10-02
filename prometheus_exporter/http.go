@@ -15,9 +15,6 @@ func RunHTTPServer(logger *slog.Logger, config MosquittoConfig) {
 	go CollectMosquittoMetrics(logger, config, &wg, quitMosquittoMetrics)
 
 	http.Handle("/metrics", promhttp.Handler())
-	http.HandleFunc("/dashboard.json", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "/dashboards/dashboard.json")
-	})
 
 	err := http.ListenAndServe(":9000", nil)
 	if err != nil {
